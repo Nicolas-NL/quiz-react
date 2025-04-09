@@ -1,10 +1,13 @@
-function QuestionButton(props) {
+function QuestionButton({ isSelected, children, ...rest }) {
   return (
-    <button {... props}
-      className="w-80 bg-slate-400 p-2 rounded-md border border-black"
-      >
-        {props.children}
-      </button>
+    <button
+      {...rest}
+      className={`w-80 bg-slate-400 p-2 rounded-md border-2 transition-all 
+        ${isSelected ? "border-yellow-400" : "border-transparent"}`}
+    >
+      {children}
+    </button>
   );
-}   
+}
+
 export default QuestionButton;
