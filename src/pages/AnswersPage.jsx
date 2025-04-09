@@ -8,17 +8,39 @@ function AnswersPage() {
   const startPageClick = () => {
     navigate('/');
   }
-  // Calculate the number of correct answers
+  // Calcula o numero de respostas corretas
   const correctAnswersCount = answers.filter(answer => answer).length;
 
   return (
-    <div className="flex flex-col items-center justify-center bg-slate-100 rounded-lg p-6 gap-4 shadow-lg border border-black w-full max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Resultado do Quiz</h1>
-      <p className="text-xl mb-6">Você acertou {correctAnswersCount} de {questions.length} perguntas!</p>
+    <div className="w-screen h-full bg-slate-900 flex justify-center p-6">
+    <div className="w-full h-full max-w-2xl space-y-6">
+        {questions.map((question, index) => {
+          const userAnswer = answers[index]?.selectedAnswer;
+          const isCorrect = answers[index]?.isCorrect;
+
+          return (
+            <div key={index} className="bg-slate-500 p-4 rounded-lg shadow-lg border border-slate-700">
+              <h2 className="font-semibold text-lg">{question.question}</h2>
+              <p className="mt-2">
+                <span className="font-bold">Sua resposta: </span>
+                <span className={isCorrect ? "text-green-400" : "text-red-400"}>
+                  {userAnswer}
+                </span>
+              </p>
+              {!isCorrect && (
+                <p className="mt-1 text-green-400">
+                  <span className="font-bold">Correta: </span>
+                  {question.correctAnswer}
+                </p>
+              )}
+            </div>
+          );
+        })}
       <button onClick={startPageClick} className="h-10 bg-slate-300 p-2 rounded-md border border-black mb-4">
         Voltar para o início
 
       </button>
+      </div>
       </div>
   );
 }
