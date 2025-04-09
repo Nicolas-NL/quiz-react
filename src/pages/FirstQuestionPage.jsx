@@ -1,4 +1,4 @@
-import QuestionButton from "../components/QuestionButon";
+import QuestionButton from "./components/QuestionButon";
 function FirstQuestionPage() {
   return (
     <div>

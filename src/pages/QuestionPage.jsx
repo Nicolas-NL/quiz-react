@@ -65,7 +65,7 @@ function QuestionPage() {
   //handleAnswer: Verifica se a resposta selecionada está correta. Ela compara a resposta
   const handleAnswer = (selectedAnswer) => {
     const isCorrect = selectedAnswer === questions[currentQuestionIndex].correctAnswer;
-    setAnswers([...answers, isCorrect]);
+    setAnswers([...answers, selectedAnswer,isCorrect]);
   };
   //nextQuestion: Avança para a próxima pergunta. Quando todas as perguntas foram respondidas, ela mostra o total de acertos.
   const nextQuestion = () => {
@@ -73,10 +73,14 @@ function QuestionPage() {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
       alert(`Fim do quiz! Você acertou ${answers.filter(answer => answer).length} de ${questions.length}`);
-      navigate('/answers');
-    }
-  };
-
+      navigate('/answers', {
+        state: {
+          answers: answers,
+          questions: questions,
+        },
+      });
+  }
+  }
   return (
     <div className="w-screen h-screen bg-slate-900 flex justify-center p-6">
       <div className="flex flex-col items-center justify-center bg-slate-200 rounded-lg p-6 gap-4 shadow-lg border border-black">
