@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import MainButton from '../components/mainButton';
+import MainButton from '../components/MainButton';
 function AnswersPage() {
   const location = useLocation();
   const { questions, answers } = location.state || { questions: [], answers: [] }; // Default to empty if no state is passed
