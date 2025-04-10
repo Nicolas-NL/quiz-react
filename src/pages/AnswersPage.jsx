@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import MainButton from '../components/mainButton';
 function AnswersPage() {
   const location = useLocation();
   const { questions, answers } = location.state || { questions: [], answers: [] }; // Default to empty if no state is passed
@@ -36,10 +37,9 @@ function AnswersPage() {
             </div>
           );
         })}
-      <button onClick={startPageClick} className="h-10 bg-slate-300 p-2 rounded-md border border-black mb-4">
-        Voltar para o início
-
-      </button>
+        <MainButton onClick={startPageClick}>
+          Voltar para o início
+        </MainButton>
       </div>
       </div>
   );

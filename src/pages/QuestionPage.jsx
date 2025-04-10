@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import reactLogo from "../assets/react.svg";
 import QuestionButton from "../components/QuestionButon";
 import { useNavigate } from "react-router-dom";
+import MainButton from "../components/mainButton";
 function QuestionPage() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(null);
@@ -118,8 +119,7 @@ function QuestionPage() {
     setSelectedOption(selectedAnswer); // ←  salvar a opção selecionada
     const isCorrect =
       selectedAnswer === questions[currentQuestionIndex].correctAnswer;
-      setAnswers([...answers, { selectedAnswer, isCorrect }]);
-
+    setAnswers([...answers, { selectedAnswer, isCorrect }]);
   };
   //nextQuestion: Avança para a próxima pergunta. Quando todas as perguntas foram respondidas, ela mostra o total de acertos.
   const nextQuestion = () => {
@@ -160,14 +160,8 @@ function QuestionPage() {
 
           //<>2</>
         ))}
+        <MainButton onClick={nextQuestion}>Proximo</MainButton>
       </div>
-
-      <button
-        className="h-10 absolute bottom-10  left-30 right-80 bg-slate-300 p-2 rounded-md border border-black"
-        onClick={nextQuestion}
-      >
-        Próximo
-      </button>
     </div>
   );
 }

@@ -20,7 +20,7 @@ function App() {
           
         </div>
         <h1 className="text-3xl font-bold text-white mb-4">React Quiz</h1>
-        <p className=" mb-4 font-bold text-slate-300">Teste seus conhecimentos com nosse quiz!</p>
+        <p className=" mb-4 font-bold text-slate-300">Teste seus conhecimentos com nosso quiz!</p>
 
       <MainButton onClick={() => nextPageClick()}>Começar Quiz</MainButton>
       </div>
