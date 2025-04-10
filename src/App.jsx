@@ -9,7 +9,7 @@ function App() {
   const navigate = useNavigate();
   
   const nextPageClick = () => {
-    navigate('/first');
+    navigate('/menu');
   }
   return (
     <div className="w-screen h-screen bg-slate-900 flex justify-center p-6">

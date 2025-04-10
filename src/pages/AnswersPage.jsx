@@ -9,8 +9,6 @@ function AnswersPage() {
   const startPageClick = () => {
     navigate('/');
   }
-  // Calcula o numero de respostas corretas
-  const correctAnswersCount = answers.filter(answer => answer).length;
 
   return (
     <div className="w-screen h-full bg-slate-900 flex justify-center p-6">
