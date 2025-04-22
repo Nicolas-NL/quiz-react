@@ -115,26 +115,39 @@ function QuestionPage() {
   const [answers, setAnswers] = useState([]);
   //handleAnswer: Verifica se a resposta selecionada está correta. Ela compara a resposta
   const handleAnswer = (selectedAnswer) => {
-    if (selectedOption) return; // já respondeu
-    setSelectedOption(selectedAnswer); // ←  salvar a opção selecionada
-    const isCorrect =
-      selectedAnswer === questions[currentQuestionIndex].correctAnswer;
-    setAnswers([...answers, { selectedAnswer, isCorrect }]);
+    setSelectedOption(selectedAnswer); // salvar a opção selecionada
   };
   //nextQuestion: Avança para a próxima pergunta. Quando todas as perguntas foram respondidas, ela mostra o total de acertos.
   const nextQuestion = () => {
+    const confirmNext = window.confirm(
+      "Tem certeza que deseja ir para a próxima pergunta?"
+    );
+    if (!confirmNext) return;
+
+    if (!selectedOption) {
+      alert("Por favor, selecione uma resposta antes de continuar.");
+      return;
+    }
+
+    const isCorrect =
+      selectedOption === questions[currentQuestionIndex].correctAnswer;
+
+    const newAnswer = { selectedAnswer: selectedOption, isCorrect };
+    const updatedAnswers = [...answers, newAnswer];
+
     if (currentQuestionIndex < questions.length - 1) {
+      setAnswers(updatedAnswers);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null); // ← reseta a seleção
+      setSelectedOption(null); // reseta seleção
     } else {
       alert(
         `Fim do quiz! Você acertou ${
-          answers.filter((answer) => answer.isCorrect).length
+          updatedAnswers.filter((answer) => answer.isCorrect).length
         } de ${questions.length}`
       );
       navigate("/answers", {
         state: {
-          answers: answers,
+          answers: updatedAnswers,
           questions: questions,
         },
       });
@@ -160,7 +173,9 @@ function QuestionPage() {
 
           //<>2</>
         ))}
-        <MainButton onClick={nextQuestion}>Proximo</MainButton>
+        <MainButton onClick={nextQuestion} disabled={!selectedOption}>
+          Proximo
+        </MainButton>
       </div>
     </div>
   );

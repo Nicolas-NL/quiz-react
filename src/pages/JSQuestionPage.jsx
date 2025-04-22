@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import MainButton from "../components/MainButton";
 import QuestionButton from "../components/QuestionButon";
-import JSLogo from '../assets/JSLogo.svg'
+import JSLogo from "../assets/JSLogo.svg";
 function JSQuestionPage() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState(null);
@@ -95,7 +95,6 @@ function JSQuestionPage() {
       correctAnswer: "`==` ignora tipos, `===` compara tipos e valores",
     },
   ];
-  
 
   // currentQuestionIndex: Controla a pergunta atual que está sendo exibida.
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -103,26 +102,39 @@ function JSQuestionPage() {
   const [answers, setAnswers] = useState([]);
   //handleAnswer: Verifica se a resposta selecionada está correta. Ela compara a resposta
   const handleAnswer = (selectedAnswer) => {
-    if (selectedOption) return; // já respondeu
-    setSelectedOption(selectedAnswer); // ←  salvar a opção selecionada
-    const isCorrect =
-      selectedAnswer === jsQuestions[currentQuestionIndex].correctAnswer;
-    setAnswers([...answers, { selectedAnswer, isCorrect }]);
+    setSelectedOption(selectedAnswer); // salvar a opção selecionada
   };
   //nextQuestion: Avança para a próxima pergunta. Quando todas as perguntas foram respondidas, ela mostra o total de acertos.
   const nextQuestion = () => {
+    const confirmNext = window.confirm(
+      "Tem certeza que deseja ir para a próxima pergunta?"
+    );
+    if (!confirmNext) return;
+
+    if (!selectedOption) {
+      alert("Por favor, selecione uma resposta antes de continuar.");
+      return;
+    }
+
+    const isCorrect =
+      selectedOption === jsQuestions[currentQuestionIndex].correctAnswer;
+
+    const newAnswer = { selectedAnswer: selectedOption, isCorrect };
+    const updatedAnswers = [...answers, newAnswer];
+
     if (currentQuestionIndex < jsQuestions.length - 1) {
+      setAnswers(updatedAnswers);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setSelectedOption(null); // ← reseta a seleção
+      setSelectedOption(null); // reseta seleção
     } else {
       alert(
         `Fim do quiz! Você acertou ${
-          answers.filter((answer) => answer.isCorrect).length
+          updatedAnswers.filter((answer) => answer.isCorrect).length
         } de ${jsQuestions.length}`
       );
       navigate("/answers", {
         state: {
-          answers: answers,
+          answers: updatedAnswers,
           questions: jsQuestions,
         },
       });
@@ -144,7 +156,9 @@ function JSQuestionPage() {
 
           //<>2</>
         ))}
-        <MainButton onClick={nextQuestion}>Proximo</MainButton>
+        <MainButton onClick={nextQuestion} disabled={!selectedOption}>
+          Proximo
+        </MainButton>
       </div>
     </div>
   );
