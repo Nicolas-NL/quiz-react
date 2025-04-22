@@ -3,7 +3,7 @@ function QuestionButton({ isSelected, children, ...rest }) {
     <button
       {...rest}
       className={`w-80 bg-slate-400 p-2 rounded-md border-2 transition-all 
-        ${isSelected ? "border-yellow-400" : "border-transparent"}`}
+        ${isSelected ? "border-blue-400" : "border-transparent"}`}
     >
       {children}
     </button>
