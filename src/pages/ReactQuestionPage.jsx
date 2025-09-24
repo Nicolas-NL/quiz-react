@@ -173,7 +173,7 @@ function QuestionPage() {
 
           //<>2</>
         ))}
-        <MainButton onClick={nextQuestion} disabled={!selectedOption}>
+        <MainButton  onClick={nextQuestion} disabled={!selectedOption}>
           Proximo
         </MainButton>
       </div>

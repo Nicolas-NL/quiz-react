@@ -7,6 +7,7 @@ import ReactQuestionPage from './pages/ReactQuestionPage.jsx'
 import AnswersPage from './pages/AnswersPage.jsx'
 import MenuPage from './pages/MenuPage.jsx'
 import JSQuestionPage from './pages/JSQuestionPage.jsx'
+import GCQuestionPage from './pages/GCQuestionPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
   {
     path: '/js',
     element:<JSQuestionPage />
+  },
+
+    {
+    path: '/gc',
+    element:<GCQuestionPage />
   },
 ]);
 createRoot(document.getElementById('root')).render(
